@@ -1,0 +1,74 @@
+{
+  "concept": "Chevron",
+  "query": {
+    "$query": {
+      "$and": [
+        {
+          "conceptUri": "http://en.wikipedia.org/wiki/Loyalty_program"
+        },
+        {
+          "keyword": "loyalty",
+          "keywordLoc": "body"
+        },
+        {
+          "$or": [
+            {
+              "keyword": "new",
+              "keywordLoc": "body"
+            },
+            {
+              "keyword": "innovative",
+              "keywordLoc": "body"
+            },
+            {
+              "keyword": "innovate",
+              "keywordLoc": "body"
+            },
+            {
+              "keyword": "attract",
+              "keywordLoc": "body"
+            },
+            {
+              "keyword": "launch",
+              "keywordLoc": "body"
+            },
+            {
+              "keyword": "launching",
+              "keywordLoc": "body"
+            }
+          ]
+        },
+        {
+          "categoryUri": "dmoz/Business"
+        },
+        {
+          "lang": "eng"
+        }
+      ],
+      "$not": {
+        "$or": [
+          {
+            "keyword": "earnings call transcript",
+            "keywordLoc": "title"
+          },
+          {
+            "keyword": "financial results",
+            "keywordLoc": "title"
+          }
+        ]
+      }
+    },
+    "$filter": {
+      "forceMaxDataTimeWindow": "365",
+      "dataType": [
+        "news",
+        "pr",
+        "blog"
+      ],
+      "isDuplicate": "skipDuplicates"
+    }
+  },
+  "resultType": "articles",
+  "articlesSortBy": "date",
+  "maxItems": 300
+}

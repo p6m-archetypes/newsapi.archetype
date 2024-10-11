@@ -1,0 +1,93 @@
+[tool.poetry]
+name = "{{ project-name }}"
+version = "0.1.0"
+description = "{{ project-title }}"
+
+authors = [
+    "{{ author_full }}",
+    "Archetect <archetect@github.io>",
+]
+
+readme = "README.md"
+packages = [
+    { include = "{{ project_name }}", from = "src" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+# shared-library
+shared-lib-driver = {version = "^1.0.6", source = "{{ org_name }}_{{ venture_name }}_pypi_local"}
+
+# Common
+pyyaml = "^6.0" {% if "AWS" in features -%}
+
+# AWS
+boto3 = "1.28.62"
+awswrangler = "3.5.2"{% endif %}{% if "LLM" in features %}
+
+# LLM
+llama-index = "0.9.16"
+nltk = "3.8.1"
+openai = "1.1.0"
+pydantic = "1.10.12"
+pinecone-client = "2.2.4"
+neo4j = "5.14.1"
+pytorch-lightning = "1.1.7"
+transformers = "4.30.2"
+networkx = "^2.6"
+joblib = "1.3.2"{% endif %}
+
+{% if "NewsAPI" in features -%}
+# NewsAPI
+eventregistry = "9.1"
+boto3 = "1.28.62"
+pandas = "2.2.1"
+python-dotenv = "1.0.1"
+requests = "2.31.0"
+{% endif %}
+
+{% if "Data" in features %}
+# Data Science
+numpy = "1.24.3"
+pandas = "1.5.3"
+tqdm = "4.65.0"
+scikit-learn = "1.2.2"
+matplotlib = "3.8.2"
+{% endif %}{% if "ETL" in features %}
+
+# ETL
+pyspark = "3.5.0"
+data-lib = {version = "^0.1.4", source = "{{ org_name }}_{{ venture_name }}_pypi_local"}
+{% endif %}
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.4"
+flake8 = "^6.1.0"
+
+[[tool.poetry.source]]
+name = "{{ org_name }}_{{ venture_name }}_pypi"
+url = "https://p6m-dev.jfrog.io/artifactory/api/pypi/{{ org-name }}-{{ venture-name }}-pypi/simple"
+priority = "supplemental"
+
+[[tool.poetry.source]]
+name = "{{ org_name }}_{{ venture_name }}_pypi_local"
+url = "https://p6m-dev.jfrog.io/artifactory/api/pypi/{{ org-name }}-{{ venture-name }}-pypi-local/simple"
+priority = "supplemental"
+
+[[tool.poetry.source]]
+name = "{{ org_name }}_{{ venture_name }}_pypi_push"
+url = "https://p6m-dev.jfrog.io/artifactory/api/pypi/{{ org-name }}-{{ venture-name }}-pypi"
+priority = "supplemental"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+
+[tool.poetry.scripts]
+main = "{{ project_name }}.main:main"
+docker-build = "manage.docker:docker_build"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

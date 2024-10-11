@@ -1,0 +1,9 @@
+---
+description: "A template for data platform archetypes"
+authors: ["Nachappa AP"]
+languages: []
+frameworks: []
+tags: []
+
+requires:
+  archetect: "2.0.0-ALPHA.10"
