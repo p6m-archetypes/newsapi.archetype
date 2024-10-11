@@ -16,12 +16,12 @@ context += prompt("Org Name:", "org-name", #{
     ],
 });
 
-context += prompt("Venture Name:", "venture-name", #{
+context += prompt("Solution Name:", "solution-name", #{
     help: "Examples: watercolor, pearson, link",
     placeholder: "data-platform",
     cases: [
         CasedIdentityCasedValue(PROGRAMMING_CASES),
-        FixedKeyCasedValue("venture-title", TitleCase),
+        FixedKeyCasedValue("solution-title", TitleCase),
     ],
 });
 
